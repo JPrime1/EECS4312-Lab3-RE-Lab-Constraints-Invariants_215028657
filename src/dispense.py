@@ -17,8 +17,40 @@ class DispenseEvent:
             quantity: Number of units dispensed. Must be a positive integer.
 
         """
+        # --- Type checks ---
+        if not isinstance(patient_id, str) or not patient_id.strip():
+            raise ValueError("patient_id must be a non-empty string")
+        
+        if not isinstance(medication, str) or not patient_id.strip():
+            raise ValueError("medication must be a non-empty string")
+
+        if not isinstance(dose_mg, int, float) or not patient_id.strip():
+            raise ValueError("dose_mg must be a number")
+
+        if not isinstance(quantity, int) or not patient_id.strip():
+            raise ValueError("quantity must be an integer")
+
+        # --- Value checks ---
+        if dose_mg <= 0:
+            raise ValueError("dose_mg must be a positive number")
+
+        if quantity <= 0:
+            raise ValueError("quantity must be a positive integer")
+
+        # --- Max dosage value ---
+        MAX_DOSE = 1000
+        MAX_QUANT = 1000
+
+        if dose_mg >= MAX_DOSE: 
+            raise ValueError("dosage too high!")
+        if quantity >= MAX_QUANT: 
+            raise ValueError("quantity too high!")
+
+        # --- Assignment (only after validation passes) ---
         self.patient_id = patient_id
         self.medication = medication
+        self.dose_mg = float(dose_mg)
+        self.quantity = quantity
 
     # TODO Task 4: Define and check system invariants 
     def invariant_holds(existing_events, new_event):
