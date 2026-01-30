@@ -65,4 +65,19 @@ class DispenseEvent:
             bool: True if all invariants hold after adding new_event; False otherwise.
             
         """
-        pass
+        # Invariant 1: new_event must not already exist (value-based)
+        if new_event in existing_events:
+            return False
+
+        # Invariant 2: no duplicate dispense for same patient + medication + dose
+        for event in existing_events:
+            if (event.patient_id == new_event.patient_id and
+                event.medication == new_event.medication and
+                event.dose_mg == new_event.dose_mg):
+                return False
+
+        # Invariant 3: quantities remain positive (defensive, constructor should enforce)
+        if new_event.quantity <= 0 or new_event.dose_mg <= 0:
+            return False        
+
+        return True
