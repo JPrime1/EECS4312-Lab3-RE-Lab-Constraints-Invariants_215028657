@@ -53,6 +53,7 @@ class DispenseEvent:
         self.quantity = quantity
 
     # TODO Task 4: Define and check system invariants 
+    @staticmethod
     def invariant_holds(existing_events, new_event):
         """
         Check whether adding a new dispense event preserves all system invariants.
