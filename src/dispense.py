@@ -24,7 +24,7 @@ class DispenseEvent:
         if not isinstance(medication, str) or not patient_id.strip():
             raise ValueError("medication must be a non-empty string")
 
-        if not isinstance(dose_mg, int, float) or not patient_id.strip():
+        if not isinstance(dose_mg, (int, float)) or not patient_id.strip():
             raise ValueError("dose_mg must be a number")
 
         if not isinstance(quantity, int) or not patient_id.strip():
